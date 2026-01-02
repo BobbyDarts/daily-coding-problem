@@ -68,6 +68,61 @@ npm test 1820
 
 Each problem follows this workflow:
 
+1. Start a new problem
+
+   **Using the start script (recommended):**
+
+```bash
+   npm run start <problem-number>
+
+   # Example:
+   npm run start 1817
+```
+
+**Manual commands:**
+
+```bash
+   git checkout -b problem/XXXX
+   mkdir -p src/XXXX
+   touch src/XXXX/{PROBLEM.md,solution.ts,solution.test.ts}
+```
+
+2. Fill in the problem details and implement the solution
+
+   - Edit `src/XXXX/PROBLEM.md` with the problem description
+   - Implement `src/XXXX/solution.ts`
+   - Add tests to `src/XXXX/solution.test.ts`
+   - Run tests: `npm test XXXX`
+
+3. Commit and merge your changes
+
+   **Using the solve script (recommended):**
+
+```bash
+   # Normal solve and merge
+   npm run solve <problem-number> "<problem-name>"
+
+   # Dry run (preview what will happen without executing)
+   npm run solve -- <problem-number> "<problem-name>" --dry-run
+
+   # Example:
+   npm run solve 1817 "Binary Tree"
+   npm run solve -- 1817 "Binary Tree" --dry-run
+```
+
+**Manual git commands:**
+
+```bash
+   git add src/XXXX/
+   git commit -m "Solve problem XXXX: [problem name]"
+   git checkout main
+   git merge problem/XXXX
+   git push origin main
+   git branch -d problem/XXXX
+```
+
+Each problem follows this workflow:
+
 1. Create a new branch for the problem
 
    ```bash
@@ -83,14 +138,32 @@ Each problem follows this workflow:
 
 3. Implement the solution with tests
 
-4. Commit and merge
-   ```bash
+4. Commit and merge your changes
+
+   **Using the solve script (recommended):**
+
+```bash
+   # Normal solve and merge
+   npm run solve  ""
+
+   # Dry run (preview what will happen without executing)
+   npm run solve --  "" --dry-run
+
+   # Example:
+   npm run solve 1818 "Closest Points"
+   npm run solve -- 1818 "Closest Points" --dry-run
+```
+
+**Manual git commands:**
+
+```bash
    git add src/XXXX/
    git commit -m "Solve problem XXXX: [problem name]"
    git checkout main
    git merge problem/XXXX
    git push origin main
-   ```
+   git branch -d problem/XXXX
+```
 
 ## Tech Stack
 

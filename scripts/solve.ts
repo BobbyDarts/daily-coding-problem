@@ -2,14 +2,22 @@
 
 import { execSync } from "child_process";
 
+// npm passes all args after the script name, but we need to handle -- separator
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run") || args.includes("-d");
-const [problemNumber, problemName] = args.filter((arg) => !arg.startsWith("-"));
+
+// Filter out flags to get positional arguments
+const positionalArgs = args.filter((arg) => !arg.startsWith("-"));
+const [problemNumber, ...problemNameParts] = positionalArgs;
+const problemName = problemNameParts.join(" "); // Handle multi-word names without quotes
 
 if (!problemNumber || !problemName) {
+  console.error('Usage: npm run solve <problem-number> "<problem-name>"');
   console.error(
-    'Usage: npm run solve <problem-number> "<problem-name>" [--dry-run]'
+    '       npm run solve -- <problem-number> "<problem-name>" --dry-run'
   );
+  console.error('Example: npm run solve 1818 "Closest Points"');
+  console.error('         npm run solve -- 1818 "Closest Points" --dry-run');
   process.exit(1);
 }
 

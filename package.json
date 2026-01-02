@@ -7,7 +7,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:problem": "jest",
-    "run": "ts-node"
+    "run": "ts-node",
+    "solve": "ts-node scripts/solve.ts"
   },
   "keywords": [],
   "author": "",

@@ -10,6 +10,7 @@ This repository contains my solutions to coding problems sent by Daily Coding Pr
 
 | #                | Problem       | Difficulty | Date Solved |
 | ---------------- | ------------- | ---------- | ----------- |
+| [1813](src/1813) | Order Log     | Easy       | 2026-01-02  |
 | [1818](src/1818) | Closest Point | Easy       | 2026-01-02  |
 | [1820](src/1820) | String Shift  | Easy       | 2025-12-29  |
 | [1821](src/1821) | Square Root   | Medium     | 2026-01-02  |

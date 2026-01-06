@@ -12,16 +12,18 @@ const [problemNumber, ...problemNameParts] = positionalArgs;
 const problemName = problemNameParts.join(" "); // Handle multi-word names without quotes
 
 if (!problemNumber || !problemName) {
-  console.error('Usage: npm run solve <problem-number> "<problem-name>"');
+  console.error('Usage: npm run solve:dcp <problem-number> "<problem-name>"');
   console.error(
-    '       npm run solve -- <problem-number> "<problem-name>" --dry-run'
+    '       npm run solve:dcp -- <problem-number> "<problem-name>" --dry-run'
   );
-  console.error('Example: npm run solve 1818 "Closest Points"');
-  console.error('         npm run solve -- 1818 "Closest Points" --dry-run');
+  console.error('Example: npm run solve:dcp 1818 "Closest Points"');
+  console.error(
+    '         npm run solve:dcp -- 1818 "Closest Points" --dry-run'
+  );
   process.exit(1);
 }
 
-const branchName = `problem/${problemNumber}`;
+const branchName = `dcp/problem/${problemNumber}`;
 
 if (dryRun) {
   console.log("🔍 DRY RUN MODE - No commands will be executed\n");
@@ -45,7 +47,7 @@ const runCommand = (command: string, description: string): void => {
 
 runCommand("git add .", "📝 Adding changes");
 runCommand(
-  `git commit -m "Solve problem ${problemNumber}: ${problemName}"`,
+  `git commit -m "Solve DCP problem ${problemNumber}: ${problemName}"`,
   "💾 Committing"
 );
 runCommand("git checkout main", "🔄 Switching to main");

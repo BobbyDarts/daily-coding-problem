@@ -8,13 +8,18 @@ const args = process.argv.slice(2);
 const [problemNumber] = args;
 
 if (!problemNumber) {
-  console.error("Usage: npm run start <problem-number>");
-  console.error("Example: npm run start 1817");
+  console.error("Usage: npm run start:dcp <problem-number>");
+  console.error("Example: npm run start:dcp 1817");
   process.exit(1);
 }
 
-const branchName = `problem/${problemNumber}`;
-const problemDir = join(process.cwd(), "src", problemNumber);
+const branchName = `dcp/problem/${problemNumber}`;
+const problemDir = join(
+  process.cwd(),
+  "src",
+  "dailycodingproblem",
+  problemNumber
+);
 
 // Check if problem directory already exists
 if (existsSync(problemDir)) {
@@ -30,7 +35,9 @@ try {
   execSync(`git checkout -b ${branchName}`, { stdio: "inherit" });
 
   // Create directory
-  console.log(`📁 Creating directory src/${problemNumber}...`);
+  console.log(
+    `📁 Creating directory src/dailycodingproblem/${problemNumber}...`
+  );
   mkdirSync(problemDir, { recursive: true });
 
   // Create PROBLEM.md
@@ -94,13 +101,17 @@ describe('Problem ${problemNumber}: [Problem Name]', () => {
   console.log(`\n✅ Problem ${problemNumber} initialized!`);
   console.log(`\nNext steps:`);
   console.log(
-    `  1. Edit src/${problemNumber}/PROBLEM.md with the problem description`
+    `  1. Edit src/dailycodingproblem/${problemNumber}/PROBLEM.md with the problem description`
   );
-  console.log(`  2. Implement src/${problemNumber}/solution.ts`);
-  console.log(`  3. Add tests to src/${problemNumber}/solution.test.ts`);
-  console.log(`  4. Run tests: npm test ${problemNumber}`);
   console.log(
-    `  5. When done: npm run solve ${problemNumber} "<problem-name>"`
+    `  2. Implement src/dailycodingproblem/${problemNumber}/solution.ts`
+  );
+  console.log(
+    `  3. Add tests to src/dailycodingproblem/${problemNumber}/solution.test.ts`
+  );
+  console.log(`  4. Run tests: npm test dailycodingproblem/${problemNumber}`);
+  console.log(
+    `  5. When done: npm run solve:dcp ${problemNumber} "<problem-name>"`
   );
 } catch (error) {
   console.error("❌ Error:", error);

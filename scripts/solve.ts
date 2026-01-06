@@ -33,6 +33,12 @@ const platformDisplay =
     ? "DCP"
     : platform === "leetcode"
     ? "LeetCode"
+    : platform === "freecodecamp"
+    ? "FreeCodeCamp"
+    : platform === "adventofcode"
+    ? "Advent of Code"
+    : platform === "projecteuler"
+    ? "Project Euler"
     : platform.charAt(0).toUpperCase() + platform.slice(1);
 
 if (dryRun) {

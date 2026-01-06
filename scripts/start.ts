@@ -104,7 +104,16 @@ describe('Problem ${problemNumber}: [Problem Name]', () => {
 
   // Platform-specific solve command hints
   const platformShorthand =
-    platform === "dailycodingproblem" ? "dcp" : platform;
+    platform === "dailycodingproblem"
+      ? "dcp"
+      : platform === "freecodecamp"
+      ? "fcc"
+      : platform === "adventofcode"
+      ? "aoc"
+      : platform === "projecteuler"
+      ? "euler"
+      : platform; // default to platform name (like 'leetcode')
+
   console.log(
     `  5. When done: npm run solve:${platformShorthand} ${problemNumber} "<problem-name>"`
   );

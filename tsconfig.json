@@ -29,6 +29,15 @@
     // "noFallthroughCasesInSwitch": true,
     // "noPropertyAccessFromIndexSignature": true,
 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@utils/*": ["src/utils/*"],
+      "@euler/*": ["src/projecteuler/*"],
+      "@fcc/*": ["src/freecodecamp/*"],
+      "@dcp/*": ["src/dailycodingproblem/*"]
+    },
+
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",

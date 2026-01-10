@@ -12,6 +12,7 @@ Project Euler is a collection of difficult math-focused programming problems. Wh
 | -------- | ---------------------- | ----------- |
 | [1](./1) | Multiples of 3 or 5    | 2026-01-07  |
 | [2](./2) | Even Fibonacci Numbers | 2026-01-07  |
+| [3](./3) | Largest Prime Factor   | 2026-01-10  |
 
 ## Workflow
 

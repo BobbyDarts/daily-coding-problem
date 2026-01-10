@@ -1,4 +1,11 @@
-import { arraySum, evenFibonacci, fibonacci, range } from ".";
+import {
+  arraySum,
+  evenFibonacci,
+  factors,
+  fibonacci,
+  primeFactors,
+  range,
+} from ".";
 
 describe("Even Fibonacci using Direct Recurrence", () => {
   test("should return the nth even fibonacci number", () => {
@@ -224,5 +231,181 @@ describe("Range", () => {
     // Python: range(2, 8) -> [2, 3, 4, 5, 6, 7]
     // Our range is inclusive, so stop=7 gives same result
     expect(range({ start: 2, stop: 7 })).toEqual([2, 3, 4, 5, 6, 7]);
+  });
+});
+
+describe("Factors", () => {
+  test("should return all factors of a number", () => {
+    expect(factors(12)).toEqual([1, 2, 3, 4, 6, 12]);
+    expect(factors(20)).toEqual([1, 2, 4, 5, 10, 20]);
+    expect(factors(28)).toEqual([1, 2, 4, 7, 14, 28]);
+  });
+
+  test("should handle prime numbers", () => {
+    expect(factors(2)).toEqual([1, 2]);
+    expect(factors(3)).toEqual([1, 3]);
+    expect(factors(7)).toEqual([1, 7]);
+    expect(factors(11)).toEqual([1, 11]);
+    expect(factors(13)).toEqual([1, 13]);
+  });
+
+  test("should handle perfect squares", () => {
+    expect(factors(4)).toEqual([1, 2, 4]);
+    expect(factors(9)).toEqual([1, 3, 9]);
+    expect(factors(16)).toEqual([1, 2, 4, 8, 16]);
+    expect(factors(25)).toEqual([1, 5, 25]);
+    expect(factors(36)).toEqual([1, 2, 3, 4, 6, 9, 12, 18, 36]);
+  });
+
+  test("should handle 1", () => {
+    expect(factors(1)).toEqual([1]);
+  });
+
+  test("should return factors in ascending order", () => {
+    const result = factors(100);
+    expect(result).toEqual([1, 2, 4, 5, 10, 20, 25, 50, 100]);
+
+    // Verify sorted
+    for (let i = 1; i < result.length; i++) {
+      expect(result[i]!).toBeGreaterThan(result[i - 1]!);
+    }
+  });
+
+  test("should handle larger numbers", () => {
+    expect(factors(60)).toEqual([1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]);
+    expect(factors(100)).toEqual([1, 2, 4, 5, 10, 20, 25, 50, 100]);
+  });
+
+  test("should not have duplicates", () => {
+    const result = factors(36);
+    const uniqueResult = [...new Set(result)];
+    expect(result).toEqual(uniqueResult);
+  });
+
+  test("should handle numbers with many factors", () => {
+    expect(factors(24)).toEqual([1, 2, 3, 4, 6, 8, 12, 24]);
+    expect(factors(48)).toEqual([1, 2, 3, 4, 6, 8, 12, 16, 24, 48]);
+  });
+});
+
+describe("Factors - Validation", () => {
+  test("should throw TypeError for non-numbers", () => {
+    expect(() => factors("12" as any)).toThrow(TypeError);
+    expect(() => factors(NaN)).toThrow(TypeError);
+  });
+
+  test("should throw RangeError for Infinity", () => {
+    expect(() => factors(Infinity)).toThrow(RangeError);
+    expect(() => factors(-Infinity)).toThrow(RangeError);
+  });
+
+  test("should throw TypeError for non-integers", () => {
+    expect(() => factors(12.5)).toThrow(TypeError);
+    expect(() => factors(3.14)).toThrow(TypeError);
+  });
+
+  test("should throw RangeError for non-positive numbers", () => {
+    expect(() => factors(0)).toThrow(RangeError);
+    expect(() => factors(-5)).toThrow(RangeError);
+  });
+});
+
+describe("Prime Factors", () => {
+  test("should return prime factors of a number", () => {
+    expect(primeFactors(12)).toEqual([2, 3]);
+    expect(primeFactors(20)).toEqual([2, 5]);
+    expect(primeFactors(28)).toEqual([2, 7]);
+  });
+
+  test("should handle prime numbers", () => {
+    expect(primeFactors(2)).toEqual([2]);
+    expect(primeFactors(3)).toEqual([3]);
+    expect(primeFactors(7)).toEqual([7]);
+    expect(primeFactors(11)).toEqual([11]);
+    expect(primeFactors(13)).toEqual([13]);
+  });
+
+  test("should handle powers of 2", () => {
+    expect(primeFactors(4)).toEqual([2]); // 2^2
+    expect(primeFactors(8)).toEqual([2]); // 2^3
+    expect(primeFactors(16)).toEqual([2]); // 2^4
+    expect(primeFactors(32)).toEqual([2]); // 2^5
+  });
+
+  test("should handle powers of other primes", () => {
+    expect(primeFactors(9)).toEqual([3]); // 3^2
+    expect(primeFactors(27)).toEqual([3]); // 3^3
+    expect(primeFactors(25)).toEqual([5]); // 5^2
+    expect(primeFactors(125)).toEqual([5]); // 5^3
+  });
+
+  test("should handle composite numbers", () => {
+    expect(primeFactors(30)).toEqual([2, 3, 5]); // 2 × 3 × 5
+    expect(primeFactors(42)).toEqual([2, 3, 7]); // 2 × 3 × 7
+    expect(primeFactors(60)).toEqual([2, 3, 5]); // 2^2 × 3 × 5
+  });
+
+  test("should handle perfect squares", () => {
+    expect(primeFactors(36)).toEqual([2, 3]); // 2^2 × 3^2
+    expect(primeFactors(100)).toEqual([2, 5]); // 2^2 × 5^2
+    expect(primeFactors(144)).toEqual([2, 3]); // 2^4 × 3^2
+  });
+
+  test("should return unique prime factors only", () => {
+    // Even if a prime appears multiple times, should only appear once
+    expect(primeFactors(8)).toEqual([2]); // 2 × 2 × 2
+    expect(primeFactors(12)).toEqual([2, 3]); // 2 × 2 × 3
+  });
+
+  test("should handle larger numbers", () => {
+    expect(primeFactors(84)).toEqual([2, 3, 7]); // 2^2 × 3 × 7
+    expect(primeFactors(210)).toEqual([2, 3, 5, 7]); // 2 × 3 × 5 × 7
+  });
+
+  test("should return factors in ascending order", () => {
+    const result = primeFactors(210);
+    expect(result).toEqual([2, 3, 5, 7]);
+
+    // Verify sorted
+    for (let i = 1; i < result.length; i++) {
+      expect(result[i])!.toBeGreaterThan(result[i - 1]!);
+    }
+  });
+
+  test("should handle numbers with large prime factors", () => {
+    expect(primeFactors(14)).toEqual([2, 7]);
+    expect(primeFactors(22)).toEqual([2, 11]);
+    expect(primeFactors(26)).toEqual([2, 13]);
+  });
+
+  test("should match prime factorization properties", () => {
+    // Product of unique prime factors should divide the original number
+    const n = 60;
+    const primes = primeFactors(n);
+    const product = primes.reduce((acc, p) => acc * p, 1);
+    expect(n % product).toBe(0);
+  });
+});
+
+describe("Prime Factors - Validation", () => {
+  test("should throw TypeError for non-numbers", () => {
+    expect(() => primeFactors("12" as any)).toThrow(TypeError);
+    expect(() => primeFactors(NaN)).toThrow(TypeError);
+  });
+
+  test("should throw RangeError for Infinity", () => {
+    expect(() => primeFactors(Infinity)).toThrow(RangeError);
+    expect(() => primeFactors(-Infinity)).toThrow(RangeError);
+  });
+
+  test("should throw TypeError for non-integers", () => {
+    expect(() => primeFactors(12.5)).toThrow(TypeError);
+    expect(() => primeFactors(3.14)).toThrow(TypeError);
+  });
+
+  test("should throw RangeError for numbers less than 2", () => {
+    expect(() => primeFactors(0)).toThrow(RangeError);
+    expect(() => primeFactors(1)).toThrow(RangeError);
+    expect(() => primeFactors(-5)).toThrow(RangeError);
   });
 });
